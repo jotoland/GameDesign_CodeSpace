@@ -89,7 +89,7 @@ function Update(){
 			Input.GetButtonDown("Fire1") && velocity.x == 0) && Input.GetAxis("Vertical") >= 0){
 			jumpCount = 0;
 			velocity.y = walkJump;
-			PlaySoundFX(soundJump, 0);
+			//PlaySoundFX(soundJump, 0);
 		}
 		//run jump
 		if(Input.GetButtonDown("Jump") && Input.GetButton("Fire1") && velocity.x !=0){
