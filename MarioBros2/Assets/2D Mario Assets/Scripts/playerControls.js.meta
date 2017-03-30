@@ -1,8 +1,12 @@
 fileFormatVersion: 2
 guid: 458b781e44e975347a213aff8a6cc451
+timeCreated: 1490835644
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - soundJump: {fileID: 8300000, guid: 818d3df6c359e7141ab2d12f7cac751c, type: 3}
+  - soundCrouchJump: {fileID: 8300000, guid: 207c8baab6b5c8d45adcd0931190835c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
