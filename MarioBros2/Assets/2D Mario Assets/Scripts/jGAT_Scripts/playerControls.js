@@ -1,4 +1,4 @@
-//John G. Toland 3/21/14
+//jGAT 3/21/14
 
 	function Start ()
 	{
@@ -42,6 +42,7 @@
 		var aniPlay = GetComponent("aniSprite");
 		//aniPlay.aniSprite( 16, 16, 0, 1, 16, 12);
 		var controller : CharacterController = GetComponent(CharacterController);
+	
 		//we are grounded, so recalculate
 		//move direction directly from axes
 		if(controller.isGrounded){
@@ -112,6 +113,7 @@
 				playSoundFX(soundCrouchJump, 0);
 			}
 		}
+
 		if(!controller.isGrounded){
 			velocity.x = Input.GetAxis("Horizontal");
 			if(Input.GetButtonUp("Jump")){
@@ -173,4 +175,5 @@
 		controller.Move(velocity * Time.deltaTime);
 		 
 	}
+
 //finito

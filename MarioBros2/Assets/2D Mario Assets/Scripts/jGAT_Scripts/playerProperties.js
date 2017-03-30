@@ -1,3 +1,4 @@
+//jGAT 3/29/17
 //Player Properties Component
 //Description: Set and Stores pickups and state of player
 
