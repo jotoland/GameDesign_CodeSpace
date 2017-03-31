@@ -18,6 +18,7 @@ var countDownAmount		: float 	= 150;				// amount to delay each time
 var playTimeEnabled	  	: boolean 	= true;				// toggle for playTime
 var countDownEnabled    : boolean 	= true;				// toggle for countDown
 
+
 function aniSprite ( spriteObject, columnSize, rowSize, colFrameStart, rowFrameStart, totalFrames, type:String)
 {
 	var index : int = playTime;							// to control frame location, playTime will equal the index count

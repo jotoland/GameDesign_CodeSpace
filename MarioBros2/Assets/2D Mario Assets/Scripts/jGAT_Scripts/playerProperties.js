@@ -1,8 +1,8 @@
 //jGAT 3/29/17
 //Player Properties Component
 //Description: Set and Stores pickups and state of player
+@script AddComponentMenu("jGAT/Actor/Player Properties Script");
 
-	@script AddComponentMenu("WalkerBoys/Actor/Player Properties Script")
 	//enumeration
 	enum PlayerState
 	{
