@@ -35,8 +35,22 @@
 
 	function OnTriggerEnter( other : Collider ){
 		if(other.tag == "collisionBoxBody"){
-			print("Player collided!");
-
+			//print("Player collided!");
+			var pProp = playerGameObject.GetComponent("playerProperties");
+			ApplyPickup(pProp);
+			GetComponent.<Renderer>().enabled = false;
+			if(itemParticle){
+				Instantiate(itemParticle, this.transform.position, this.transform.rotation);
+			}
+			if(soundItemPickup){
+				playSoundFX(soundItemPickup, 0);
+			}
+			if(extraLifeEnabled){
+				extraLifeEnabled = false;
+				pProp.lives += pickupValue;
+			}
+			this.gameObject.transform.Translate(2, -20, 0);
+			Destroy(this.gameObject, 1f);
 		}
 	}
 
@@ -76,7 +90,6 @@
 		soundRate = Time.time + soundDelay;
 		GetComponent.<AudioSource>().clip = soundName;
 		GetComponent.<AudioSource>().Play();
-		yield WaitForSeconds(GetComponent.<AudioSource>().clip.length);
 	}
 
 }

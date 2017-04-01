@@ -41,14 +41,16 @@
 			//fires a fire ball to the left when player is facing left
 			if(Input.GetButtonDown("Fire1") && projectileFire && playerControls.moveDirection == 0){
 				clone = Instantiate(projectileFire, projectileSocketLeft.transform.position, transform.rotation);
-				rb = clone.GetComponent("Rigidbody");
-				rb.AddForce(-90, 0, 0);
+				//rb = clone.GetComponent("Rigidbody");
+				//rb.AddForce(-90, 0, 0);
+				clone.GetComponent("projectileFireball").moveSpeed = -2.0;
 			}
 			//fire ball to the right
 			if(Input.GetButtonDown("Fire1") && projectileFire && playerControls.moveDirection == 1){
 				clone = Instantiate(projectileFire, projectileSocketRight.transform.position, transform.rotation);
-				rb = clone.GetComponent("Rigidbody");
-				rb.AddForce(90, 0, 0);
+				//rb = clone.GetComponent("Rigidbody");
+				//rb.AddForce(90, 0, 0);
+				clone.GetComponent("projectileFireball").moveSpeed = 2.0;
 			}
 		}else{
 			return;

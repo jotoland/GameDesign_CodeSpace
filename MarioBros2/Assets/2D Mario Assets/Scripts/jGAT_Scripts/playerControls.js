@@ -90,7 +90,8 @@ function Update(){
 			if(moveDirection == 0){
 				aniPlay.aniSprite(16, 16, 0, 9, 16, 24);
 				//crouch right
-			}else{
+			}
+			if(moveDirection == 1){
 				aniPlay.aniSprite(16, 16, 0, 8, 16, 24);
 			}
 		}
