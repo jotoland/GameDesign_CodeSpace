@@ -10,7 +10,13 @@
 	var bounceUp				: boolean 		= false;
 	var heightDifference		: float			= 0.0;
 
+	private var cameraLink		: GameObject;
+
+	private var AUDIO_SOURCE	: AudioSource;
+
 	function Start(){
+		cameraLink = GameObject.Find("main_camera_hud");
+		AUDIO_SOURCE = cameraLink.GetComponent.<AudioSource>();
 		killFireball();
 	}
 
@@ -40,12 +46,15 @@
 				hitPosition = this.transform.position.y;
 				bounceUp = true;
 			}
-		}else if(other.tag == "enemy"){
+		}
+		if(other.tag == "enemy"){
+			AUDIO_SOURCE.Play();
 			particlePlay();
 			Destroy(other.gameObject);
 			Destroy(this.gameObject);
-		}else {
-			moveSpeed = moveSpeed * -1;
+		}
+		if(other.tag == "block"){
+			//moveSpeed = moveSpeed * -1;
 		}
 	}
 
@@ -62,5 +71,6 @@
 		}
 
 	}
+
 
 //finito

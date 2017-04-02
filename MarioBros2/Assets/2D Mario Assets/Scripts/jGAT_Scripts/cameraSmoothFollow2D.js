@@ -41,7 +41,8 @@ function Update (){
 		//adjust orthographic size from the camera = jumpHeight (Lerp)
 		if(playerJumpHeight < 0){
 			playerJumpHeight *= -1;
-		}else if(playerJumpHeight > cameraZoomMax){
+		}
+		if(playerJumpHeight > cameraZoomMax){
 			playerJumpHeight = cameraZoomMax;
 		}
 		this.GetComponent.<Camera>().orthographicSize = Mathf.Lerp(this.GetComponent.<Camera>().orthographicSize, playerJumpHeight + cameraZoomMin, Time.time * cameraZoomTime);

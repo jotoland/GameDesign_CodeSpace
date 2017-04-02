@@ -20,22 +20,20 @@ var particleJump					: Transform;
 
 var soundJump						: AudioClip;
 var soundCrouchJump					: AudioClip;
+private var AUDIO_SOURCE			: AudioSource;
 private var soundRate				: float = 0.0;
 private var soundDelay				: float = 0.0;
 
 function Start (){
- 
-
-
+ 	AUDIO_SOURCE = GetComponent.<AudioSource>();
 }
 
-
 function playSoundFX(soundName, soundDelay){
-	if(!GetComponent.<AudioSource>().isPlaying && Time.time > soundRate){
+	if(!AUDIO_SOURCE.isPlaying && Time.time > soundRate){
 		soundRate = Time.time + soundDelay;
-		GetComponent.<AudioSource>().clip = soundName;
-		GetComponent.<AudioSource>().Play();
-		yield WaitForSeconds(GetComponent.<AudioSource>().clip.length);
+		AUDIO_SOURCE.clip = soundName;
+		AUDIO_SOURCE.Play();
+		yield WaitForSeconds(AUDIO_SOURCE.clip.length);
 	}
 }
 

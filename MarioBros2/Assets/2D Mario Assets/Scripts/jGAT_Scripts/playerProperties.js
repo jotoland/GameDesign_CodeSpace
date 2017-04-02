@@ -17,6 +17,7 @@
 	var lives					: int			= 3;
 	var keys					: int			= 0;
 	var coins					: int			= 0;
+	var mainCamera				: GameObject;
 	var projectileFire			: GameObject;
 	var projectileSocketRight	: Transform;
 	var projectileSocketLeft	: Transform;
@@ -26,12 +27,24 @@
 
 	var changeMario				: boolean		= false;
 	var hasFire					: boolean		= false;
+	var fireballSound			: AudioClip;
+	var soundDie				: AudioClip;
 
 	private var coinLife		: int			= 20;
 	private var canShoot		: boolean		= false;
+	private var dead			: boolean		= false;
+	private var AUDIO_SOURCE	: AudioSource;
+
+	private var soundDelay		: float			= 0.0;
+	private var soundRate		: float			= 0.0;
+
+	function Start(){
+		AUDIO_SOURCE = GetComponent.<AudioSource>();
+	}
 
 	function Update(){
 		var playerControls = GetComponent("playerControls");
+		PlayerLives();
 		if(changeMario){
 			SetPlayerState();
 		}
@@ -41,31 +54,26 @@
 			//fires a fire ball to the left when player is facing left
 			if(Input.GetButtonDown("Fire1") && projectileFire && playerControls.moveDirection == 0){
 				clone = Instantiate(projectileFire, projectileSocketLeft.transform.position, transform.rotation);
-				//rb = clone.GetComponent("Rigidbody");
-				//rb.AddForce(-90, 0, 0);
+				PlaySoundFX(fireballSound, 0);
 				clone.GetComponent("projectileFireball").moveSpeed = -2.0;
 			}
 			//fire ball to the right
 			if(Input.GetButtonDown("Fire1") && projectileFire && playerControls.moveDirection == 1){
 				clone = Instantiate(projectileFire, projectileSocketRight.transform.position, transform.rotation);
-				//rb = clone.GetComponent("Rigidbody");
-				//rb.AddForce(90, 0, 0);
+				PlaySoundFX(fireballSound, 0);
 				clone.GetComponent("projectileFireball").moveSpeed = 2.0;
 			}
 		}else{
 			return;
 		}
-
 	}
 
 	function AddKey(numKey : int){
 		keys += numKey;
-
 	}
 
 	function AddCoin(numCoin : int){
 		coins += numCoin;
-
 	}
 
 	function SetPlayerState(){
@@ -108,10 +116,42 @@
 				break;
 			case PlayerState.MarioDead	:
 				//print("mario dead");
-				transform.localScale = new Vector3(1.0, 1.0, 1.0);
-				Destroy(gameObject);
+				playerControls.gravity = 0.0;
+				this.transform.Translate(0, 3 * Time.deltaTime, 0);
+				this.transform.position.z = -1;
+				mainCamera.GetComponent("cameraSmoothFollow2D").enabled = false;
+				yield WaitForSeconds(0.5);
+				GetComponent.<CharacterController>().enabled = false;
+				PlaySoundFX(soundDie, 0);
+				yield WaitForSeconds(3);
+				GetComponent.<CharacterController>().enabled = true;
+				playerControls.gravity = 20.0;
+				if(dead){
+					lives--;
+					dead = false;
+					if(lives > 0){
+						this.transform.position = GetComponent("spawnSaveSetup").curSavePosition;
+					}
+					playerState = PlayerState.MarioSmall;
+					changeMario = true;
+				}
 				changeMario = false;
 				break;
+		}
+	}
+
+	function PlaySoundFX(soundName, soundDelay){
+		if(!AUDIO_SOURCE.isPlaying && Time.time > soundRate){
+			soundRate = Time.time + soundDelay;
+			AUDIO_SOURCE.clip = soundName;
+			AUDIO_SOURCE.Play();
+			yield WaitForSeconds(AUDIO_SOURCE.clip.length);
+		}
+	}
+
+	function PlayerLives(){
+		if(lives == 0){
+			Application.LoadLevel("2D Mario Screen Lose");
 		}
 	}
 
