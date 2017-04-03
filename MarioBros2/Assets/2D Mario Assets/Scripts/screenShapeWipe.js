@@ -62,7 +62,7 @@ function ScreenShapeWipe ( wipeTime : float, zoom : sizeType )
 	// Do the wipe
 	if (zoom == sizeType.Shrink) 
 	{
-		for ( i = 1.0; i > 0.0; i -= Time.deltaTime * 1 / wipeTime ) 
+		for ( var i : int = 1.0; i > 0.0; i -= Time.deltaTime * 1 / wipeTime ) 
 		{	
 			var j = Mathf.Lerp ( 1.0, 0.0, Mathf.Sin ( ( 1 - i ) * Mathf.PI * 0.5 ) );	// Slow down near the end
 			shape.localScale  = Vector3( j, j, j );

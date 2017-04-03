@@ -7,7 +7,8 @@
 	var mushroomSpeed					: float = 1.0;
 
 	function Update (){
-		moveDirection = mushroomDirection.GetComponent("mushroomCollider").mushroomDirection;
+		var mushCollider : mushroomCollider = mushroomDirection.GetComponent("mushroomCollider");
+		var moveDirection : boolean = mushCollider.mushroomDirection;
 
 		if(moveDirection){
 			mushroomSpeed = 1.0;

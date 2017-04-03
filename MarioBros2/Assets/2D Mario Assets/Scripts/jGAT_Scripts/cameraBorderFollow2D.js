@@ -19,7 +19,7 @@
 	}
 
 	function FixedUpdate (){
-		var moveDir = player.GetComponent("playerControls");
+		var moveDir : playerControls = player.GetComponent("playerControls");
 		if(cameraTarget.transform.position.x > this.GetComponent.<Camera>().transform.position.x + borderX && moveDir.moveDirection == 1){
 			moveScreenRight = true;
 		}

@@ -1,7 +1,7 @@
 ﻿//jGAT  4/1/17 PLAYER COLLIDER ATTACK BOX (ATTACK COMPONENT)
 //registers the attack zone
 
-	var hitDistance					: float			= 3.0;
+	var hitDistance					: float			= 4.0;
 	var hitTime						: float			= 0.2;
 	var hitSound					: AudioClip;
 	var deadSound					: AudioClip;
@@ -13,7 +13,7 @@
 	private var changeState			: boolean 		= false;
 	private var soundRate			: float			= 0.0;
 	private var soundDelay			: float			= 0.0;
-	private var pProp;
+	private var pProp				: playerProperties;
 
 	function Start(){
 		playerLink = GameObject.Find("player");
@@ -98,7 +98,7 @@
 		}
 	}
 
-	function PlaySoundFX(soundName, soundDelay){
+	function PlaySoundFX(soundName : AudioClip, soundDelay : float){
 		if(!AUDIO_SOURCE.isPlaying && Time.time > soundRate){
 			soundRate = Time.time + soundDelay;
 			AUDIO_SOURCE.clip = soundName;

@@ -1,9 +1,9 @@
+
+import UnityStandardAssets.CrossPlatformInput;
 //jGAT 3/21/14
 
-
-
 var walkSpeed 						: float = 1.5;				
-var runSpeed 						: float = 2.0;				
+var runSpeed 						: float = 4.0;				
 var fallSpeed 						: float = 2.0;				
 var walkJump 						: float = 6.5;
 var runJump 						: float = 9.0;
@@ -11,7 +11,7 @@ var crouchJump 						: float = 10.0;
 var gravity 						: float = 20.0;
 var startPos						: float = 0.0;
 var moveDirection					: int 	= 1;
-private var velocity 				: Vector3 = Vector3.zero;
+@HideInInspector var velocity 		: Vector3 = Vector3.zero;
 private var jumpCount				: int = -1;
 private var downWardForce			: float = 1.0;
 
@@ -28,7 +28,7 @@ function Start (){
  	AUDIO_SOURCE = GetComponent.<AudioSource>();
 }
 
-function playSoundFX(soundName, soundDelay){
+function playSoundFX(soundName : AudioClip, soundDelay : float){
 	if(!AUDIO_SOURCE.isPlaying && Time.time > soundRate){
 		soundRate = Time.time + soundDelay;
 		AUDIO_SOURCE.clip = soundName;
@@ -40,7 +40,7 @@ function playSoundFX(soundName, soundDelay){
 function Update(){
 	var particleSpawn : Vector3 = new Vector3 (transform.position.x, transform.position.y -.5, transform.position.z);
 
-	var aniPlay = GetComponent("aniSprite");
+	var aniPlay : aniSprite = GetComponent("aniSprite");
 	//aniPlay.aniSprite( 16, 16, 0, 1, 16, 12);
 	var controller : CharacterController = GetComponent(CharacterController);
 
@@ -49,7 +49,7 @@ function Update(){
 	if(controller.isGrounded){
 		jumpCount = -1;
 		startPos = transform.position.y;
-		velocity = Vector3(Input.GetAxis("Horizontal"),0,0);
+		velocity = Vector3(CrossPlatformInputManager.GetAxis("Horizontal"),0,0);
 		//move direction is zero on right hand side
 		if(velocity.x == 0 && moveDirection == 1){
 			//animation sprite for idling to the right
@@ -71,17 +71,17 @@ function Update(){
 			aniPlay.aniSprite(16, 16, 0, 2, 10, 15);
 		}
 		//run left
-		if(velocity.x < 0 && Input.GetButton("Fire1") ){
+		if(velocity.x < 0 && CrossPlatformInputManager.GetButton("Fire1") ){
 			velocity.x *= runSpeed;
 			aniPlay.aniSprite(16, 16, 0, 5, 16, 24);
 		}
 		//run right
-		if(velocity.x > 0 && Input.GetButton("Fire1") ){
+		if(velocity.x > 0 && CrossPlatformInputManager.GetButton("Fire1") ){
 			velocity.x *= runSpeed;
 			aniPlay.aniSprite(16, 16, 0, 4, 16, 24);
 		}
 		//crouching left and right
-		if(velocity.x == 0 && Input.GetAxis("Vertical") < 0){
+		if(CrossPlatformInputManager.GetAxis("Vertical") < 0){
 			//stop player from moving
 			velocity.x = 0;
 			//crouch left
@@ -94,22 +94,22 @@ function Update(){
 			}
 		}
 		//walk jump
-		if(Input.GetButtonDown("Jump") && (!Input.GetButton("Fire1") || 
-			Input.GetButtonDown("Fire1") && velocity.x == 0) && Input.GetAxis("Vertical") >= 0){
+		if(CrossPlatformInputManager.GetButtonDown("Jump") && (!CrossPlatformInputManager.GetButton("Fire1") || 
+			CrossPlatformInputManager.GetButtonDown("Fire1") && velocity.x == 0) && CrossPlatformInputManager.GetAxis("Vertical") >= 0){
 			Instantiate(particleJump, particleSpawn, transform.rotation);
 			jumpCount = 0;
 			velocity.y = walkJump;
 			playSoundFX(soundJump, 0);
 		}
 		//run jump
-		if(Input.GetButtonDown("Jump") && Input.GetButton("Fire1") && velocity.x !=0){
+		if(CrossPlatformInputManager.GetButtonDown("Jump") && CrossPlatformInputManager.GetButton("Fire1") && velocity.x !=0){
 			Instantiate(particleJump, particleSpawn, transform.rotation);
 			jumpCount = 1;
 			velocity.y = runJump;
 			playSoundFX(soundJump, 0);
 		}
 		//crouch jump
-		if(Input.GetButtonDown("Jump") && velocity.x == 0 && Input.GetAxis("Vertical") < 0){
+		if(CrossPlatformInputManager.GetButtonDown("Jump") && velocity.x == 0 && CrossPlatformInputManager.GetAxis("Vertical") < 0){
 			Instantiate(particleJump, particleSpawn, transform.rotation);
 			jumpCount = 2;
 			velocity.y = crouchJump;
@@ -118,8 +118,8 @@ function Update(){
 	}
 
 	if(!controller.isGrounded){
-		velocity.x = Input.GetAxis("Horizontal");
-		if(Input.GetButtonUp("Jump")){
+		velocity.x = CrossPlatformInputManager.GetAxis("Horizontal");
+		if(CrossPlatformInputManager.GetButtonUp("Jump")){
 			velocity.y = velocity.y - fallSpeed;
 
 		}

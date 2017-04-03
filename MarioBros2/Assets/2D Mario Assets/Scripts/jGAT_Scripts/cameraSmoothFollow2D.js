@@ -32,7 +32,7 @@ function Update (){
 	if(!cameraFollowY && cameraFollowHeight){
 		GetComponent.<Camera>().transform.position.y = cameraHeight;
 	}
-	var playerControls = player.GetComponent("playerControls");
+	var playerControls : playerControls = player.GetComponent("playerControls");
 	if(cameraZoom){
 		//get current y position of player from playerControls
 		curPos = player.transform.position.y;

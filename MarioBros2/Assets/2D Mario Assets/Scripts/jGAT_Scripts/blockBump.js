@@ -95,7 +95,7 @@
 				}
 				if(blockCoinAmount == 0 && BlockStateAfter == BlockStateAfter.blockCoin){
 					BlockState = BlockStateAfter;
-					BlockStateAfter = BlockStateAfter.blockStateBreakable;
+					BlockStateAfter = BlockStateAfter.blockBreakable;
 				}
 				if(blockCoinAmount == 0 && BlockStateAfter == BlockStateAfter.blockBreakable){
 					BlockState = BlockStateAfter;

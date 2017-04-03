@@ -6,7 +6,7 @@
 
 	function Update ()
 	{
-		var aniPlay = GetComponent("aniSprite");
+		var aniPlay : aniSprite = GetComponent("aniSprite");
 		aniPlay.aniSprite(16, 2, 0, 0, 21, rotationCoinSpeed);
 	}
 

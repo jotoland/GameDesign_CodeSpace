@@ -11,7 +11,6 @@
 	var heightDifference		: float			= 0.0;
 
 	private var cameraLink		: GameObject;
-
 	private var AUDIO_SOURCE	: AudioSource;
 
 	function Start(){

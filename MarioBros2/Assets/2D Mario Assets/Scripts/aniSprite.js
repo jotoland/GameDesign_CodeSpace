@@ -11,11 +11,11 @@
 // totalFrames     - number of frames in the animation (count regular)
 // framesPerSecond - how fast do you want it to play through (Standard: 12 - 30 fps)
 
-function aniSprite (columnSize, rowSize, colFrameStart, rowFrameStart, totalFrames, framesPerSecond)// function for animating sprites
+function aniSprite (columnSize : int, rowSize : int, colFrameStart : int, rowFrameStart : int, totalFrames : int, framesPerSecond : int)// function for animating sprites
 {
-	var index : int = Time.time * framesPerSecond;													// time control fps
+	var index : int = Time.time * framesPerSecond;																									// time control fps
 	index = index % totalFrames;																	// modulate to total number of frames
-	
+
 	var size = Vector2 ( 1.0 / columnSize, 1.0 / rowSize);											// scale for column and row size
 	
 	var u = index % columnSize;																		// u gets current x coordinate from column size

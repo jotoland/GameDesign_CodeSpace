@@ -42,7 +42,7 @@ var continueTimeEnabled : boolean 	= false;			// toggle for continueTime
 var countDownEnabled    : boolean 	= false;			// toggle for countDown
 
 // This is our 2D Ani Sprite Sheet with minor modifications to work with Time. Define 'type' with: font1, font2, font 3, font 4
-function aniSprite ( spriteObject, columnSize, rowSize, colFrameStart, rowFrameStart, totalFrames, type:String)
+function aniSprite ( spriteObject : GameObject, columnSize : int, rowSize : int, colFrameStart : int, rowFrameStart : int, totalFrames : int, type:String)
 {
 	var index : int = playTime;							// to control frame location, playTime will equal the index count
 	
@@ -104,7 +104,7 @@ if (aniFont4 != null) aniSprite ( aniFont4, 10, 1, 0, 0, 10, "font4" );	// anima
 	{
 		fromLoadTime = Time.timeSinceLevelLoad; 		// store current fromLoadTime
 		startTime 			= 0;						// reset start time
-		addtoTime 			= 0;						// reset add to time
+		addToTime 			= 0;						// reset add to time
 		playTimeEnabled 	= false;					// reset to false
 		realTimeEnabled 	= false;					// reset to false
 		countDownEnabled 	= false;					// reset to false

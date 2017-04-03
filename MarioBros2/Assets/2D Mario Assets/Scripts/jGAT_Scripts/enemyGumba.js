@@ -30,13 +30,14 @@
 	private var velocity			: Vector3	= Vector3.zero; 
 	private var gravity				: float		= 20.0; 
 	private var currentState;
-	private var aniPlay;
+	private var aniPlay				: aniSprite;
 	private var isRight				: boolean	= false;
 	private var myTransform			: Vector3;
 	private var resetMoveSpeed		: float		= 0.0;
 	private var distanceToHome		: float		= 0.0;
 	private var distanceToTarget	: float		= 0.0;
 	private var controller			: CharacterController;
+	private var linkToPlayerProperties : playerProperties;
 
 	function Start (){
 		AUDIO_SOURCE = GetComponent.<AudioSource>();
@@ -106,8 +107,17 @@
 
 	function OnTriggerEnter(other : Collider){
 		if(other.tag == "pathNode"){
-			var linkToPathNode = other.GetComponent("pathNode");
-			gumbaState = linkToPathNode.pathInstruction;
+			var linkToPathNode : pathNode = other.GetComponent("pathNode");
+			if(linkToPathNode.pathInstruction == 0){
+				gumbaState = 0;
+			}else if(linkToPathNode.pathInstruction == 1){
+				gumbaState = 1;
+			}else if(linkToPathNode.pathInstruction == 2){
+				gumbaState = 2;
+			}else if(linkToPathNode.pathInstruction == 3){
+				gumbaState = 3;
+			}
+
 			if(linkToPathNode.overRideJump){
 				jumpSpeed = linkToPathNode.jumpOverRide;
 			}
@@ -116,13 +126,18 @@
 			//print("marios feet hit head");
 			var playerLink	: GameObject;
 			playerLink = GameObject.Find("player");
-			playerLink.GetComponent("playerControls").velocity.y = deathForce;
+			var pControls : playerControls = playerLink.GetComponent("playerControls");
+			pControls.velocity.y = deathForce;
 			AUDIO_SOURCE.clip = bounceHit;
 			AUDIO_SOURCE.Play();
 			var boxCollider = GetComponent.<BoxCollider>();
 			if(boxCollider){
 				boxCollider.size = Vector3.zero;
 				Destroy(boxCollider);
+				 for(var child : Transform in this.transform) {
+             		GameObject.Destroy(child.gameObject);
+         		}
+ 				
 				gumbaState = GumbaState.enemyDie;
 			}else{
 				Debug.Log("Could not load Box Collider");

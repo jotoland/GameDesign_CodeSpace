@@ -19,7 +19,7 @@ var playTimeEnabled	  	: boolean 	= true;				// toggle for playTime
 var countDownEnabled    : boolean 	= true;				// toggle for countDown
 
 
-function aniSprite ( spriteObject, columnSize, rowSize, colFrameStart, rowFrameStart, totalFrames, type:String)
+function aniSprite ( spriteObject : GameObject, columnSize : int, rowSize : int, colFrameStart :int, rowFrameStart : int, totalFrames : int, type:String)
 {
 	var index : int = playTime;							// to control frame location, playTime will equal the index count
 	

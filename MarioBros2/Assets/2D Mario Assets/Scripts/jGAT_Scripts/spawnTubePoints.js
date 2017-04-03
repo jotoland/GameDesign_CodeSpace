@@ -1,3 +1,5 @@
+
+import UnityStandardAssets.CrossPlatformInput;
 //jGAT 3/31/17 	SPAWN_TUBE_POINTS
 // Provides the porting from one tube to another
 
@@ -10,11 +12,11 @@
 
 	function OnTriggerStay(other : Collider){
 		if(other.tag == "Player"){
-			if(Input.GetAxis ("Vertical") < 0){
+			if(CrossPlatformInputManager.GetAxis ("Vertical") < 0){
 				//print("player pushing down");
-				var marioControls 	= other.GetComponent("playerControls");
-				var marioBody		= other.gameObject;
-				var sprite 		 	= other.GetComponent("aniSprite");
+				var marioControls 	: playerControls = other.GetComponent("playerControls");
+				var marioBody		: GameObject = other.gameObject;
+				var sprite 		 	: aniSprite = other.GetComponent("aniSprite");
 
 				if(marioControls.moveDirection == 0){
 					marioControls.velocity.x = 0;

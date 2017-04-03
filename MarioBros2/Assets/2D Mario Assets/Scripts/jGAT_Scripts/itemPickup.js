@@ -17,16 +17,15 @@
 	var soundDelay						: float			= 0.0;
 	var soundRate						: float			= 0.0;
 
-	private var playerGameObject		: GameObject;
-	private var hudGameObject			: GameObject;
+	var pProp							: playerProperties;
+	var hudConnect						: hudController;
 	var extraLifeEnabled				: boolean		= false;
 
 
 
 
 	function Start (){
-		playerGameObject = GameObject.FindWithTag("Player");
-		hudGameObject = GameObject.FindWithTag("hud");
+
 	}
 
 	function Update (){
@@ -36,7 +35,8 @@
 	function OnTriggerEnter( other : Collider ){
 		if(other.tag == "collisionBoxBody"){
 			//print("Player collided!");
-			var pProp = playerGameObject.GetComponent("playerProperties");
+			var player : GameObject = GameObject.Find("player");
+			var pProp : playerProperties = player.GetComponent("playerProperties");
 			ApplyPickup(pProp);
 			GetComponent.<Renderer>().enabled = false;
 			if(itemParticle){
@@ -55,8 +55,8 @@
 	}
 
 	function ApplyPickup( playerStatus : playerProperties ){
-		var hudConnect = hudGameObject.GetComponent("hudController");
-
+		var hud : GameObject = GameObject.Find("hud");
+		var hConnect : hudController = hud.GetComponent("hudController");  
 		switch(pickupType){
 			case PickupType.Grow:
 				if(playerStatus.playerState != PlayerState.MarioFire){
@@ -69,7 +69,7 @@
 				break;
 			case PickupType.Coin:
 				playerStatus.AddCoin(pickupValue);
-				hudConnect.coin += pickupValue;
+				hConnect.coin += pickupValue;
 				break;
 			case PickupType.Fireball:
 				playerStatus.playerState = PlayerState.MarioFire;
@@ -85,7 +85,7 @@
 		}
 	}
 
-	function playSoundFX(soundName, soundDelay){
+	function playSoundFX(soundName : AudioClip, soundDelay : float){
 	if(!GetComponent.<AudioSource>().isPlaying && Time.time > soundRate){
 		soundRate = Time.time + soundDelay;
 		GetComponent.<AudioSource>().clip = soundName;

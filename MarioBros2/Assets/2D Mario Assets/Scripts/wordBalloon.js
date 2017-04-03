@@ -1,3 +1,4 @@
+import UnityEngine.SceneManagement;
 // Word Balloon Component
 // Walker Boys (www.walkerboystudio.com)
 // March 19, 2011
@@ -10,11 +11,13 @@ var wordBalloon2      			: GameObject;								// word balloon gameObject
 var wordBalloonSound			: AudioClip;								// audio file for final word balloon gone
 private var wordBalloonStart  	: boolean 		= false;					// enable first word balloon
 private var wordBalloonNext   	: boolean 		= false;					// enable next word balloon 
+private var currentScene		: Scene;
 
 function Start ()															// initialize
 {
 	wordBalloon1.GetComponent(Renderer).enabled = false;									// set balloon render state to false (hide)
 	wordBalloon2.GetComponent(Renderer).enabled = false;									// set balloon render state to false (hide)
+	currentScene = SceneManager.GetActiveScene();
 }
 function Update ()															// loop
 {
@@ -42,6 +45,10 @@ function Update ()															// loop
 			Time.timeScale = 1.0;											// set time scale back to normal
 			GetComponent(AudioSource).clip = wordBalloonSound;									// set the soundName as the audio clip to play
 			GetComponent(AudioSource).Play ();													// play the audio clip
+			if(currentScene.name == "WelcomeScene"){
+				LoadWorldOne();
+			}
+
 		}
 	}
 }
@@ -59,4 +66,9 @@ function OnTriggerExit ( other : Collider )									// if trigger exit event
 		wordBalloonStart = false;											// if so, then turn off balloon start 
 		wordBalloon1.GetComponent(Renderer).enabled = false;								// set balloon render state to false (hide)
 	}
+}
+
+function LoadWorldOne(){
+	yield WaitForSeconds(GetComponent(AudioSource).clip.length);
+	SceneManager.LoadScene("jGAT_World");
 }

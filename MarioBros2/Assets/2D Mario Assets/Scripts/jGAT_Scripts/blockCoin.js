@@ -3,8 +3,8 @@
 
 	var coinValue				: int				= 2;
 	var coinParticle			: Transform;
-	var playerGameObject;
-	var hudGameObject;
+	var playerConnect			: playerProperties;
+	var hudConnect				: hudController;
 	var coinAlive				: boolean			= false;
 
 	private var AUDIO_SOURCE	: AudioSource;
@@ -12,12 +12,10 @@
 
 	function Start (){
 		coinAlive = true;
-		hudGameObject		= GameObject.FindWithTag("hud");
-		playerGameObject 	= GameObject.FindWithTag("Player");
 	}
 
 	function Update (){
-		var aniPlay = GetComponent("aniSprite");
+		var aniPlay : aniSprite = GetComponent("aniSprite");
 		aniPlay.aniSprite(16, 2, 0, 0, 21, 12);
 		this.transform.Translate(0, Time.deltaTime * 5, 0);
 		if(coinAlive){
@@ -34,11 +32,12 @@
 	}
 
 	function AddToCoins(){
-		var hudConnect = hudGameObject.GetComponent("hudController");
-		hudConnect.coin  += coinValue;
-
-		var playerConnect = playerGameObject.GetComponent("playerProperties");
-		playerConnect.coins += coinValue;
+		var hud : GameObject = GameObject.Find("hud");
+		var hConnect : hudController = hud.GetComponent("hudController");
+		var player : GameObject = GameObject.Find("player");
+		var pConnect : playerProperties = player.GetComponent("playerProperties");
+		hConnect.coin  += coinValue;
+		pConnect.coins += coinValue;
 	}
 
 //finito

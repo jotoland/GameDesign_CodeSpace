@@ -1,3 +1,5 @@
+import UnityEngine.UI;
+import UnityEngine.SceneManagement;
 //jGAT 3/29/17
 //Player Properties Component
 //Description: Set and Stores pickups and state of player
@@ -19,6 +21,11 @@
 	var coins					: int			= 0;
 	var mainCamera				: GameObject;
 	var projectileFire			: GameObject;
+	var GameOverText			: Text;
+	var BackGround				: Image;
+	var flashSpeed				: float			= 5.0;
+	var flashColor				: Color			= new Color(0.0, 0.0, 0.0, 1.0);
+	var flashTextColor			: Color			= new Color(1.0, 0.0, 0.0, 1.0);
 	var projectileSocketRight	: Transform;
 	var projectileSocketLeft	: Transform;
 
@@ -32,7 +39,7 @@
 
 	private var coinLife		: int			= 20;
 	private var canShoot		: boolean		= false;
-	private var dead			: boolean		= false;
+	@HideInInspector var dead	: boolean		= false;
 	private var AUDIO_SOURCE	: AudioSource;
 
 	private var soundDelay		: float			= 0.0;
@@ -40,28 +47,31 @@
 
 	function Start(){
 		AUDIO_SOURCE = GetComponent.<AudioSource>();
+
 	}
 
 	function Update(){
-		var playerControls = GetComponent("playerControls");
+		var playerControls : playerControls = GetComponent("playerControls");
 		PlayerLives();
 		if(changeMario){
 			SetPlayerState();
 		}
 		if(canShoot){
-			var clone;
-			var rb;
+			var clone : GameObject;
+
 			//fires a fire ball to the left when player is facing left
 			if(Input.GetButtonDown("Fire1") && projectileFire && playerControls.moveDirection == 0){
 				clone = Instantiate(projectileFire, projectileSocketLeft.transform.position, transform.rotation);
+				var projectileFireballScript : projectileFireball = clone.GetComponent("projectileFireball");
 				PlaySoundFX(fireballSound, 0);
-				clone.GetComponent("projectileFireball").moveSpeed = -2.0;
+				projectileFireballScript.moveSpeed = -2.0;
 			}
 			//fire ball to the right
 			if(Input.GetButtonDown("Fire1") && projectileFire && playerControls.moveDirection == 1){
 				clone = Instantiate(projectileFire, projectileSocketRight.transform.position, transform.rotation);
+				var projectileFireballScript2 : projectileFireball = clone.GetComponent("projectileFireball");
 				PlaySoundFX(fireballSound, 0);
-				clone.GetComponent("projectileFireball").moveSpeed = 2.0;
+				projectileFireballScript2.moveSpeed = 2.0;
 			}
 		}else{
 			return;
@@ -77,7 +87,7 @@
 	}
 
 	function SetPlayerState(){
-		var playerControls = GetComponent("playerControls");
+		var playerControls : playerControls = GetComponent("playerControls");
 		var characterController = GetComponent(CharacterController);
 
 		switch(playerState){
@@ -119,18 +129,25 @@
 				playerControls.gravity = 0.0;
 				this.transform.Translate(0, 3 * Time.deltaTime, 0);
 				this.transform.position.z = -1;
-				mainCamera.GetComponent("cameraSmoothFollow2D").enabled = false;
+				var smoothFollowScript : cameraSmoothFollow2D = mainCamera.GetComponent("cameraSmoothFollow2D");
+				var music = mainCamera.GetComponent.<AudioSource>();
+				music.Pause();
+				smoothFollowScript.enabled = false;
 				yield WaitForSeconds(0.5);
 				GetComponent.<CharacterController>().enabled = false;
 				PlaySoundFX(soundDie, 0);
 				yield WaitForSeconds(3);
-				GetComponent.<CharacterController>().enabled = true;
-				playerControls.gravity = 20.0;
+
 				if(dead){
 					lives--;
 					dead = false;
 					if(lives > 0){
-						this.transform.position = GetComponent("spawnSaveSetup").curSavePosition;
+						smoothFollowScript.enabled = true;
+						GetComponent.<CharacterController>().enabled = true;
+						playerControls.gravity = 20.0;
+						var spawnSaveSetupScript : spawnSaveSetup = GetComponent("spawnSaveSetup");
+						this.transform.position = spawnSaveSetupScript.curSavePosition;
+						music.Play();
 					}
 					playerState = PlayerState.MarioSmall;
 					changeMario = true;
@@ -140,7 +157,7 @@
 		}
 	}
 
-	function PlaySoundFX(soundName, soundDelay){
+	function PlaySoundFX(soundName : AudioClip, soundDelay : float){
 		if(!AUDIO_SOURCE.isPlaying && Time.time > soundRate){
 			soundRate = Time.time + soundDelay;
 			AUDIO_SOURCE.clip = soundName;
@@ -151,7 +168,12 @@
 
 	function PlayerLives(){
 		if(lives == 0){
-			Application.LoadLevel("2D Mario Screen Lose");
+			yield WaitForSeconds(1);
+			BackGround.color = Color.Lerp(BackGround.color,  flashColor, flashSpeed * Time.deltaTime);
+			GameOverText.color = Color.Lerp(GameOverText.color, flashTextColor, flashSpeed * Time.deltaTime);
+			yield WaitForSeconds(4);
+			SceneManager.LoadScene("WelcomeScene");
+
 		}
 	}
 
