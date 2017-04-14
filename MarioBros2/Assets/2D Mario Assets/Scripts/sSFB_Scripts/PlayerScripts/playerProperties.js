@@ -141,7 +141,6 @@ import UnityEngine.SceneManagement;
 						playerControls.gravity = 20.0;
 						var spawnSaveSetupScript : spawnSaveSetup = GetComponent("spawnSaveSetup");
 						this.transform.position = spawnSaveSetupScript.curSavePosition;
-					
 					}
 					playerState = PlayerState.MarioSmall;
 					changeMario = true;
@@ -159,7 +158,6 @@ import UnityEngine.SceneManagement;
 			GameOverText.color = Color.Lerp(GameOverText.color, flashTextColor, flashSpeed * Time.deltaTime);
 			yield WaitForSeconds(6);
 			SceneManager.LoadScene("jGAT_WelcomeScene");
-
 		}
 	}
 

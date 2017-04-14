@@ -17,6 +17,7 @@
 
 	private var pointPosValue			: int;
 	var player							: GameObject;
+
 	private var pControls				: playerControls;
 	private var pProp					: playerProperties;
 	private var charCon 				: CharacterController;
@@ -28,7 +29,6 @@
 	function Start(){
 		pole = GameObject.Find("prefab_pole_WIN");
 
-		//player = GameObject.Find("player");
 		pControls = player.GetComponent("playerControls");
 		pProp = player.GetComponent("playerProperties");
 		charCon = player.GetComponent.<CharacterController>();
@@ -38,8 +38,11 @@
 	}
 
 	function OnTriggerEnter(other : Collider){
+		var aniPlay : aniSprite = player.GetComponent("aniSprite");
+		aniPlay.aniSprite(16, 16, 11, 3, 4, 12);
 		if(other.tag == "socketRight"){
 			//print("Mario");
+
 			player.transform.position.x = this.transform.position.x - 0.1;
 			charCon.enabled = false;
 
@@ -112,8 +115,8 @@
 		pControls.gravity = 20.0;
 		pControls.moveDirection = 1;
 		pControls.velocity.y = 6.0;
+		pControls.velocity.x = 6.0;
 		player.transform.position.x = this.transform.position.x + 0.5;
-
 	}
 
 

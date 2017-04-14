@@ -70,5 +70,5 @@ function OnTriggerExit ( other : Collider )									// if trigger exit event
 
 function LoadWorldOne(){
 	yield WaitForSeconds(GetComponent(AudioSource).clip.length);
-	SceneManager.LoadScene("jGAT_World");
+	SceneManager.LoadScene("sSFB_World_1");
 }

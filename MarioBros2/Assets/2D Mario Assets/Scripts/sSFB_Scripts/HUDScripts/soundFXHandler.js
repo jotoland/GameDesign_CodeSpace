@@ -60,6 +60,7 @@ function PlaySoundFX(soundName : AudioClip, soundDelay : float){
 }
 
 function PlaySoundFXQb(soundName : AudioClip, soundDelay : float){
+		yield WaitForSeconds(soundDelay);
 		soundRate = Time.time + soundDelay;
 		BACKUP_AS_1.clip = soundName;
 		BACKUP_AS_1.Play();
@@ -89,7 +90,6 @@ function PlaySoundFX1UP(soundName : AudioClip, soundDelay : float){
 }
 
 function PlaySoundFXFire(soundName : AudioClip, soundDelay : float){
-
 		soundRate = Time.time + soundDelay;
 		BACKUP_AS_5.clip = soundName;
 		BACKUP_AS_5.Play();
