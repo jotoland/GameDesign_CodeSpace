@@ -24,7 +24,7 @@ import UnityStandardAssets.CrossPlatformInput;
 	}
 
 	function OnTriggerEnter(other : Collider){
-		if(other.CompareTag("Player") && !this.gameObject.CompareTag("skyTubeDown")){
+		if(other.CompareTag("Player") && !this.gameObject.CompareTag("skyTubeDown") && !this.gameObject.CompareTag("underWorldTubeDown")){
 			if(CrossPlatformInputManager.GetAxis("Vertical") > 0){
 				marioControls = other.GetComponent("playerControls");
 				marioBody = other.gameObject;
