@@ -57,7 +57,7 @@
 
 	function HitLeft(){
 		if(hitLeft){
-			aS.PlaySoundFX(aS.marioInjured, 0);
+			aS.PlaySoundFXCoin(aS.marioInjured, 0);
 			playerLink.transform.Translate(-hitDistance * Time.deltaTime, hitDistance * Time.deltaTime, 0);
 			yield WaitForSeconds(hitTime);
 		}
@@ -65,7 +65,7 @@
 
 	function HitRight(){
 		if(hitRight){
-			aS.PlaySoundFX(aS.marioInjured, 0);
+			aS.PlaySoundFXCoin(aS.marioInjured, 0);
 			playerLink.transform.Translate(hitDistance * Time.deltaTime, hitDistance * Time.deltaTime, 0);
 			yield WaitForSeconds(hitTime);
 		}

@@ -130,7 +130,7 @@ import UnityEngine.SceneManagement;
 				smoothFollowScript.enabled = false;
 				yield WaitForSeconds(0.5);
 				GetComponent.<CharacterController>().enabled = false;
-				aS.PlaySoundFX(aS.marioDie, 0);
+				aS.PlaySoundFXCoin(aS.marioDie, 0);
 				yield WaitForSeconds(aS.marioDie.length);
 				if(dead){
 					lives--;

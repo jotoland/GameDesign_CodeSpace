@@ -23,6 +23,7 @@ function Start (){
 }
 
 function Update (){
+	
 	if(cameraFollowX){
 		thisTransform.position.x = Mathf.SmoothDamp(thisTransform.position.x, cameraTarget.transform.position.x,  velocity.x, smoothTime);
 	}

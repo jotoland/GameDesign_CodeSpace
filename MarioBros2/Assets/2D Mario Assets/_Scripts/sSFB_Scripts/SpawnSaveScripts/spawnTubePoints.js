@@ -40,7 +40,7 @@ import UnityStandardAssets.CrossPlatformInput;
 				moveDown = true;
 				if(moveDown){
 					marioBody.transform.Translate(0, -5 * Time.deltaTime, 0);
-					aS.PlaySoundFX(aS.pipePort, 0);
+					aS.PlaySoundPipe(aS.pipePort, 0);
 					yield WaitForSeconds(0.2);
 					marioBody.GetComponent.<Renderer>().enabled = false;
 					marioBody.GetComponent.<Collider>().enabled = false;
@@ -54,7 +54,7 @@ import UnityStandardAssets.CrossPlatformInput;
 				}
 				if(moveUp){
 					yield WaitForSeconds(1);
-					aS.PlaySoundFX(aS.pipePort, 0);
+					aS.PlaySoundPipe(aS.pipePort, 0);
 					marioControls.gravity = 0.0;
 					marioBody.GetComponent.<Renderer>().enabled = true;
 					marioBody.GetComponent.<Collider>().enabled = true;
@@ -64,9 +64,7 @@ import UnityStandardAssets.CrossPlatformInput;
 					marioControls.enabled = true;
 					moveUp = false;
 					if(this.gameObject.CompareTag("underWorldTubeUp")){
-						soundTrack.clip = aS.worldOneMusic;
-						yield WaitForSeconds(.3);
-						soundTrack.Play();
+						aS.PlaySoundTrack(aS.worldOneMusic, 0.3);
 					}
 				}
 			}

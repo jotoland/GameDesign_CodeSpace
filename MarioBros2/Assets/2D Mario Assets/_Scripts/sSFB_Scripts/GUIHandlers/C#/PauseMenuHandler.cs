@@ -11,13 +11,18 @@ public class PauseMenuHandler : MonoBehaviour {
 	private GameObject joyStick;
 	private GameObject runBtn;
 	private GameObject mobileControls;
+	public GameObject muteAudioBtn;
+
 	private bool GAME_PAUSED;
+	public bool AUDIO_MUTED;
 
 
 
 	// Use this for initialization
 	void Start () {
+		
 		GAME_PAUSED = false;
+		AUDIO_MUTED = false;
 		pauseMenuBox = GameObject.Find ("PauseMenuBox");
 		mobileControls = GameObject.Find ("jGAT_MobileControls");
 		if (mobileControls) {
@@ -33,6 +38,17 @@ public class PauseMenuHandler : MonoBehaviour {
 		
 	}
 
+	public void MuteAudio(){
+		if (AUDIO_MUTED) {
+			AudioListener.volume = 1;
+			muteAudioBtn.GetComponentInChildren<Text>().text = "Mute Audio";
+			AUDIO_MUTED = false;
+		} else {
+			AudioListener.volume = 0;
+			muteAudioBtn.GetComponentInChildren<Text>().text = "Unmute";
+			AUDIO_MUTED = true;
+		}
+	}
 
 	public void PauseBtn(){
 		if (GAME_PAUSED) {
@@ -70,4 +86,6 @@ public class PauseMenuHandler : MonoBehaviour {
 		UnityEditor.EditorApplication.isPlaying = false;
 		#endif
 	}
+
+
 }

@@ -41,7 +41,7 @@ import UnityStandardAssets.CrossPlatformInput;
 				enterUp = true;
 				if(enterUp){
 					marioBody.transform.Translate(0, 5 * Time.deltaTime, 0);
-					aS.PlaySoundFXQb(aS.pipePort, 0);
+					aS.PlaySoundPipe(aS.pipePort, 0);
 					yield WaitForSeconds(0.2);
 					marioBody.GetComponent.<Renderer>().enabled = false;
 					marioBody.GetComponent.<Collider>().enabled = false;
@@ -52,7 +52,7 @@ import UnityStandardAssets.CrossPlatformInput;
 				}
 				if(showUp){
 					yield WaitForSeconds(1);
-					aS.PlaySoundFX(aS.pipePort, 0);
+					aS.PlaySoundPipe(aS.pipePort, 0);
 					marioControls.gravity = 0.0;
 					marioBody.GetComponent.<Renderer>().enabled = true;
 					marioBody.GetComponent.<Collider>().enabled = true;
@@ -92,7 +92,7 @@ import UnityStandardAssets.CrossPlatformInput;
 				moveDown = true;
 				if(moveDown && porting){
 					marioBody.transform.Translate(0, -5 * Time.deltaTime, 0);
-					aS.PlaySoundFX(aS.pipePort, 0);
+					aS.PlaySoundPipe(aS.pipePort, 0);
 					yield WaitForSeconds(0.2);
 					marioBody.GetComponent.<Renderer>().enabled = false;
 					marioBody.GetComponent.<Collider>().enabled = false;
@@ -105,7 +105,7 @@ import UnityStandardAssets.CrossPlatformInput;
 				}
 				if(moveDown && !porting){
 					yield WaitForSeconds(1);
-					aS.PlaySoundFX(aS.pipePort, 0);
+					aS.PlaySoundPipe(aS.pipePort, 0);
 					marioControls.gravity = 0.0;
 					marioBody.GetComponent.<Renderer>().enabled = true;
 					marioBody.GetComponent.<Collider>().enabled = true;
@@ -115,8 +115,7 @@ import UnityStandardAssets.CrossPlatformInput;
 					marioControls.enabled = true;
 					moveDown = false;
 					if(this.gameObject.CompareTag("underWorldTubeDown")){
-						soundTrack.clip = aS.underWorldMusic;
-						soundTrack.Play();
+						aS.PlaySoundTrack(aS.underWorldMusic, 0);
 					}
 				}
 			}

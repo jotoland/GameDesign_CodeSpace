@@ -120,7 +120,7 @@
 			case BlockState.blockSolid :
 				GetComponent.<Renderer>().material = materialBlock2;
 				if(blockAni){
-					aS.PlaySoundFX(aS.marioBump, 0);
+					aS.PlaySoundFXBlock(aS.marioBump, 0);
 					blockAni = false;
 				}
 				break;
@@ -129,21 +129,21 @@
 				if(blockAni && PickupState == PickupState.pickupMushroomGrow){
 					BLOCK_ANI.Play("blockBounce");
 					Instantiate(pickupMushroomGrow, pickupPos, this.transform.rotation);
-					aS.PlaySoundFXQb(aS.marioPowerUp, 0);
+					aS.PlaySoundFXGrow(aS.marioPowerUp, 0);
 					blockAni = false;
 					BlockState = BlockStateAfter;
 				}
 				if(blockAni && PickupState == PickupState.pickupMushroomLife){
 					BLOCK_ANI.Play("blockBounce");
 					Instantiate(pickupMushroomLife, pickupPos, this.transform.rotation);
-					aS.PlaySoundFXQb(aS.marioPowerUp, 0);
+					aS.PlaySoundFXGrow(aS.marioPowerUp, 0);
 					blockAni = false;
 					BlockState = BlockStateAfter;
 				}
 				if(blockAni && PickupState == PickupState.pickupFireFlower){
 					BLOCK_ANI.Play("blockBounce");
 					Instantiate(pickupFireFlower, pickupPos, this.transform.rotation);
-					aS.PlaySoundFXQb(aS.marioPowerUp, 0);
+					aS.PlaySoundFXFire(aS.marioPowerUp, 0);
 					blockAni = false;
 					BlockState = BlockStateAfter;
 				}

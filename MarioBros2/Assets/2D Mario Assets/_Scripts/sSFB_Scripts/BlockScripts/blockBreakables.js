@@ -20,7 +20,6 @@
 	function Start(){
 		audioCam = GameObject.Find("main_camera_and_hud");
  		aS = audioCam.GetComponent("soundFXHandler");
-		
 		aS.PlaySoundFXBlock(aS.marioBreakBlock, 0);
 	}
 

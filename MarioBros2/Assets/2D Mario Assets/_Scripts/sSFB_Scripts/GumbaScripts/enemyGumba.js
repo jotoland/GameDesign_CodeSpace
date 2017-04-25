@@ -240,8 +240,8 @@
 				}
 				Destroy(this.gameObject);
 			}else{
-				yield WaitForSeconds(2);
-				boxCollider.size = new Vector3(.2, .05, 1);
+				yield WaitForSeconds(1.5);
+				boxCollider.size = new Vector3(0.3, 0.05, 3);
 				for(var child : Transform in this.transform) {
              		child.gameObject.active = true;
          		}
@@ -267,8 +267,8 @@
 				}
 				Destroy(this.gameObject);
 			}else{
-				yield WaitForSeconds(2);
-				boxCollider.size = new Vector3(.2, .05, 1);
+				yield WaitForSeconds(1.5);
+				boxCollider.size = new Vector3(0.3, 0.05, 3);
 				for(var child : Transform in this.transform) {
              		child.gameObject.active = true;
          		}
