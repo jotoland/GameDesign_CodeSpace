@@ -59,9 +59,9 @@ public class AudioMixerHandler : MonoBehaviour {
 		mainMix.SetFloat ("sfxTrack", sfxLvl);
 		mainMix.SetFloat ("1upTrack", sfxLvl);
 		mainMix.SetFloat ("blockTrack", sfxLvl);
-		mainMix.SetFloat ("coinTrack", sfxLvl);
+		mainMix.SetFloat ("coinsTrack", sfxLvl);
 		mainMix.SetFloat ("fireFlowerTrack", sfxLvl);
-		mainMix.SetFloat ("mushroomGrowTrack", sfxLvl);
+		mainMix.SetFloat ("mushGrowTrack", sfxLvl);
 		mainMix.SetFloat ("pipePortTrack", sfxLvl);
 		mainMix.SetFloat ("qBlockTrack", sfxLvl);
 
@@ -78,9 +78,9 @@ public class AudioMixerHandler : MonoBehaviour {
 		SoundTrack.value = 15;
 		mainMix.ClearFloat ("sfxTrack");
 		mainMix.ClearFloat ("1upTrack");
-		mainMix.ClearFloat ("coinTrack");	
+		mainMix.ClearFloat ("coinsTrack");	
 		mainMix.ClearFloat ("fireFlowerTrack");
-		mainMix.ClearFloat ("mushroomGrowTrack");
+		mainMix.ClearFloat ("mushGrowTrack");
 		mainMix.ClearFloat ("pipePortTrack");
 		mainMix.ClearFloat ("qBlockTrack");
 		SoundEffects.value = 2;

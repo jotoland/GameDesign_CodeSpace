@@ -13,9 +13,16 @@ var wordBalloonSound			: AudioClip;								// audio file for final word balloon 
 private var wordBalloonStart  	: boolean 		= false;					// enable first word balloon
 private var wordBalloonNext   	: boolean 		= false;					// enable next word balloon 
 private var currentScene		: Scene;
+public var menu					: GameObject;
+public var mobileControls		: GameObject;
+public var pauseBtn				: GameObject;
+private var joyStick			: GameObject;
+private var jumpBtn				: GameObject;
+private var runBtn				: GameObject;
 
 private var aS					: soundFXHandler;
 private var audioCam			: GameObject;
+private var GAME_PAUSED			: boolean = false;
 
 function Start ()															// initialize
 {
@@ -24,6 +31,12 @@ function Start ()															// initialize
 	audioCam = GameObject.Find("main_camera_and_hud");
 	aS = audioCam.GetComponent("soundFXHandler");									// set balloon render state to false (hide)
 	currentScene = SceneManager.GetActiveScene();
+
+	if (mobileControls) {
+			jumpBtn = mobileControls.transform.GetChild (0).gameObject;
+			joyStick = mobileControls.transform.GetChild (1).gameObject;
+			runBtn = mobileControls.transform.GetChild (2).gameObject;
+	}
 }
 function Update ()															// loop
 {
@@ -51,7 +64,7 @@ function Update ()															// loop
 			Time.timeScale = 1.0;		
 			aS.PlaySoundFX(aS.marioStartSaying, 0);									// set time scale back to normal													// play the audio clip
 			if(currentScene.name == "jGAT_WelcomeScene" || currentScene.name == "jGAT_sandboxSmall"){
-				LoadWorldOne();
+				openMenu();
 			}
 
 		}
@@ -73,7 +86,29 @@ function OnTriggerExit ( other : Collider )									// if trigger exit event
 	}
 }
 
-function LoadWorldOne(){
+function openMenu(){
 	yield WaitForSeconds(aS.marioStartSaying.length);
-	SceneManager.LoadScene("jGAT_World_1");
+	if (GAME_PAUSED) {
+			pauseBtn.GetComponentInChildren.<Text>().text = "Pause";
+			menu.SetActive (false);
+			if (mobileControls) {
+				jumpBtn.GetComponent.<Image> ().enabled = true;
+				joyStick.GetComponent.<Image> ().enabled = true;
+				runBtn.GetComponent.<Image> ().enabled = true;
+			}
+			Time.timeScale = 1;
+			AudioListener.pause = false;
+			GAME_PAUSED = false;
+		} else {
+			pauseBtn.GetComponentInChildren.<Text>().text = "Play";
+			if (mobileControls) {
+				jumpBtn.GetComponent.<Image> ().enabled = false;
+				joyStick.GetComponent.<Image> ().enabled = false;
+				runBtn.GetComponent.<Image> ().enabled = false;
+			}
+			menu.SetActive (true);
+			Time.timeScale = 0;
+			AudioListener.pause = true;
+			GAME_PAUSED = true;
+		}
 }

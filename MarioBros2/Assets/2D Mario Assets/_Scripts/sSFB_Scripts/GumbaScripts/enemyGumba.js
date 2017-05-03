@@ -146,7 +146,7 @@
          			if(boxCollider){
 						boxCollider.size = Vector3.zero;
 						for(var child : Transform in this.transform) {
-             				child.gameObject.active = false;
+             				child.gameObject.SetActive(false);
          				}
          			}else{
 						Debug.Log("Could not load Box Collider");
@@ -236,14 +236,14 @@
 			if(bossHealth == 0){
 				var doorWay : GameObject = GameObject.Find("DoorWay");
 				if(doorWay){
-					doorWay.active = false;
+					doorWay.SetActive(false);
 				}
 				Destroy(this.gameObject);
 			}else{
 				yield WaitForSeconds(1.5);
 				boxCollider.size = new Vector3(0.3, 0.05, 3);
 				for(var child : Transform in this.transform) {
-             		child.gameObject.active = true;
+             		child.gameObject.SetActive(true);
          		}
 				gumbaState = GumbaState.moveRight;
 			}
@@ -263,14 +263,14 @@
 			if(bossHealth == 0){
 				var doorWay : GameObject = GameObject.Find("DoorWay");
 				if(doorWay){
-					doorWay.active = false;
+					doorWay.SetActive(false);
 				}
 				Destroy(this.gameObject);
 			}else{
 				yield WaitForSeconds(1.5);
 				boxCollider.size = new Vector3(0.3, 0.05, 3);
 				for(var child : Transform in this.transform) {
-             		child.gameObject.active = true;
+             		child.gameObject.SetActive(true);
          		}
 				gumbaState = GumbaState.moveLeft;
 			}

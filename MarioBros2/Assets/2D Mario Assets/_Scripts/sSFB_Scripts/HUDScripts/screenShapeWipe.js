@@ -22,8 +22,8 @@ function ScreenShapeWipe ( wipeTime : float, zoom : sizeType )
 {
 	if ( inProgress ) { return; }
 	inProgress = true;
-	camera1.gameObject.active = true;
-	camera2.gameObject.active = true;
+	camera1.gameObject.SetActive(true);
+	camera2.gameObject.SetActive(true);
 	
 	// Swap cameras every other time so multiple transitions in a row will work
 	if ( swap ) 
@@ -91,7 +91,7 @@ function ScreenShapeWipe ( wipeTime : float, zoom : sizeType )
 	{
 		c1.clearFlags = originalFlag;
 	}
-	c1.gameObject.active = false;
+	c1.gameObject.SetActive(false);
 	c2.depth = originalDepth;
 	inProgress = false;
 }

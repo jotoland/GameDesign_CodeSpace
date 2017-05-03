@@ -95,7 +95,7 @@ import UnityEngine.SceneManagement;
 	function MarioOnStage(){
 			BackGround.color = Color.Lerp(BackGround.color,  black, flashSpeed * Time.deltaTime);
 			VictoryText.color = Color.Lerp(VictoryText.color, yellow, flashSpeed * Time.deltaTime);
-			yield WaitForSeconds(9);
+			yield WaitForSeconds(4);
 			SceneManager.LoadScene("jGAT_WelcomeScene");
 	}
 

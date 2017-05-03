@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class PauseMenuHandler : MonoBehaviour {
@@ -85,6 +86,18 @@ public class PauseMenuHandler : MonoBehaviour {
 		#if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 		#endif
+	}
+
+	public void JohnsWorldBtn(){
+		SceneManager.LoadScene ("jGAT_World_1");
+	}
+
+	public void RichardsWorldBtn(){
+		SceneManager.LoadScene ("Richard's world");
+	}
+
+	public void RachelsWorldBtn(){
+		SceneManager.LoadScene ("Rachel_world");
 	}
 
 
